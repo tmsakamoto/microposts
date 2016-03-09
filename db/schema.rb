@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20160308071445) do
+=======
+ActiveRecord::Schema.define(version: 20160309094719) do
+>>>>>>> user-profile
 
   create_table "microposts", force: :cascade do |t|
     t.integer  "user_id"
@@ -23,6 +27,15 @@ ActiveRecord::Schema.define(version: 20160308071445) do
   add_index "microposts", ["user_id", "created_at"], name: "index_microposts_on_user_id_and_created_at"
   add_index "microposts", ["user_id"], name: "index_microposts_on_user_id"
 
+<<<<<<< HEAD
+=======
+  create_table "prefectures", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+>>>>>>> user-profile
   create_table "relationships", force: :cascade do |t|
     t.integer  "follower_id"
     t.integer  "followed_id"
@@ -38,10 +51,16 @@ ActiveRecord::Schema.define(version: 20160308071445) do
     t.string   "name"
     t.string   "email"
     t.string   "password_digest"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "url"
+    t.text     "self_introduction"
+    t.integer  "prefcture_id_id"
+    t.integer  "prefecture_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["prefcture_id_id"], name: "index_users_on_prefcture_id_id"
+  add_index "users", ["prefecture_id"], name: "index_users_on_prefecture_id"
 
 end

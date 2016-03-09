@@ -1,8 +1,10 @@
 class UsersController < ApplicationController
+  before_action :find_user, only: [:show, :edit, :update]
+  before_action :set_prefectures, only: [:edit, :update]
   
   def show
-    @user = User.find(params[:id])
     @microposts = @user.microposts.order(created_at: :desc)
+
   end
   
   def new
@@ -18,10 +20,30 @@ class UsersController < ApplicationController
       render 'new'
     end
   end
+  
+  def edit
+  end
+  
+  def update
+    if @user.update_attributes(user_params)
+      flash[:success] = "Profile has been edited"
+      redirect_to edit_user_path
+    else
+      render 'edit'
+    end
+  end
     
   private
   
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :prefecture_id, :url, :self_introduction)
+  end
+  
+  def find_user
+    @user = User.find(params[:id])
+  end
+  
+  def set_prefectures
+    @prefectures = Prefecture.all
   end
 end
