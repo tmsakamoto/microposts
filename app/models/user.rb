@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
     validates :email, presence: true, length: { maximum: 255 },
                       format: { with: VALID_EMAIL_REGEX },
                       uniqueness: { case_sensitive: false }
-    validates :url, format: /\A#{URI::regexp(%w(http https))}\z/, length: { maximum: 255 }
-    validates :self_introduction, length: { maximum: 1000 }
+    validates :url, format: /\A#{URI::regexp(%w(http https))}\z/, length: { maximum: 255 }, on: :update
+    validates :self_introduction, length: { maximum: 1000 }, on: :update
     has_secure_password
 end
