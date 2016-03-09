@@ -1,19 +1,16 @@
 default: &default
-  adapter: mysql2
-  encoding: utf8
+  adapter: sqlite3
   pool: 5
-  username: root
   timeout: 5000
-  host: <%=ENV['IP']%>
 
 development:
   <<: *default
-  database: microposts_development
+  database: db/development.sqlite3
 
 test:
   <<: *default
-  database: microposts_test
+  database: db/test.sqlite3
 
 production:
   <<: *default
-  database: microposts_production
+  database: db/production.sqlite3
