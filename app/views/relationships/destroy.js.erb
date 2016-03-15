@@ -1,1 +1,3 @@
 $("#follow_form").html("<%= escape_javascript(render('users/follow')) %>");
+$("li#followings-<%= @user.id %>").remove();
+$("li#followers-<%= current_user.id %>").remove();

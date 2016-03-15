@@ -13,7 +13,7 @@
                            html: { method: :delete },
                            remote: true,
                            data: { confirm: "You shure?" }) do |f| %>
-                <%= f.submit "Unfollow", class: "btn unfollow" %>
+                <%= f.submit "Unfollow", class: "btn", id: "unfollow" %>
               <% end %>
             <% end %>
           </li>
@@ -24,8 +24,3 @@
     <% end %>
   </div>
 </div>
-<%= javascript_tag do %>
-  $('.unfollow').click(function() {
-    location.reload();
-  });
-<% end %>
