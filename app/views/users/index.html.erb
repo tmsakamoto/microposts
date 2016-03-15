@@ -1,0 +1,11 @@
+<div class="row">
+  <h1>Users</h1>
+  <ul class="users">
+    <% @users.each do |user| %>
+      <li id="users-<%= user.id %>" class="clearfix">
+        <%= link_to gravatar_for(user, size: 50), user %>
+        <span class="user"><%= link_to user.name, user %></span>
+      </li>
+    <% end %>
+  </div>
+</div>

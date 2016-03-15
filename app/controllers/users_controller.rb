@@ -4,7 +4,10 @@ class UsersController < ApplicationController
   
   def show
     @microposts = @user.microposts.order(created_at: :desc)
-
+  end
+  
+  def index
+    @users = User.all
   end
   
   def new
