@@ -5,3 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+#
+# coding: utf-8
+
+Comment.create(:micropost_id => 13, :content => 'これがコメント！', :user_id => 1)

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :find_user, only: [:show, :edit, :update]
+  before_action :find_user, only: [:show, :edit, :update, :followings, :followers]
   before_action :set_prefectures, only: [:edit, :update]
   
   def show
@@ -35,6 +35,17 @@ class UsersController < ApplicationController
       render 'edit'
     end
   end
+  
+  def followings
+    @users = @user.following_users.order(created_at: :desc)
+    render 'followings'
+  end
+  
+  def followers
+    @users = @user.follower_users.order(created_at: :desc)
+    render 'followers'
+  end
+  
     
   private
   

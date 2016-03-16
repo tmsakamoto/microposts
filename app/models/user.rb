@@ -12,8 +12,10 @@ class User < ActiveRecord::Base
   validates :self_introduction, length: { maximum: 1000 }, on: :update
   has_secure_password
 
+  has_one :member
   has_many :microposts
   has_many :comments
+  accepts_nested_attributes_for :member
   has_many :following_relationships, class_name: "Relationship",
                                      foreign_key: "follower_id",
                                      dependent: :destroy
@@ -24,6 +26,7 @@ class User < ActiveRecord::Base
   has_many :follower_users, through: :follower_relationships, source: :follower
   
   #他のユーザーをフォローする
+  #other_user.idがカラムfollowed_idの中にあるか探す
   def follow(other_user)
     following_relationships.find_or_create_by(followed_id: other_user.id)
   end

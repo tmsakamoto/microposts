@@ -1,4 +1,4 @@
-<li id="micropost-<% micropost.id %>">
+<li id="micropost-<%= micropost.id %>">
   <%= link_to gravatar_for(micropost.user, size: 50), micropost.user %>
   <span class="user"><%= link_to micropost.user.name, micropost.user %></span>
   <span class="content"><%= micropost.content %></span>
@@ -9,13 +9,23 @@
                                        data: { confirm: "You shure?" } %>
     <% end %>
   </span>
-  <span>
-    <%= form_for(@comment) do |f| %>
-      <%= render 'error_messages', object: f.object %>
-      <div class="field">
-        <%= f.text_area :content, placeholder: "Compose new comment..." %>
-      </div>
-      <%= f.submit "Post", class: "btn btn-primary" %>
-    <% end %>
-  </span>
+  <!-- 投稿済みコメント -->
+  <% if micropost.comments.any? %>
+    <ul>
+      <% micropost.comments.each do |comment| %>
+        <li><%= comment.content %> by <%= link_to comment.user.name, comment.user %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  
+  <!-- コメントフォーム -->
+  <%= form_for(micropost.comments.build) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+    <div class="field">
+      <%= f.text_area :content, placeholder: "Compose new comment..." %>
+      <%= f.hidden_field :micropost_id, :value => micropost.id %>
+      <%= f.hidden_field :user_id, :value => current_user.id %>
+    </div>
+    <%= f.submit "Comment Post", class: "btn btn-primary" %>
+  <% end %>
 </li>

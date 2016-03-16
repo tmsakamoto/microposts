@@ -1,0 +1,26 @@
+<div class="row">
+  <%= render 'aside' %>
+  <div class="col-md-8">
+    <h3>Followers (<%= @users.count %>)</h3>
+    <% if @users.present? %>
+      <ul class="follow">
+        <% @users.each do |user| %>
+          <li id="followers-<%= user.id %>" class="clearfix">
+            <%= link_to gravatar_for(user, size: 50), user %>
+            <span class="user"><%= link_to user.name, user %></span>
+            <% if current_user.id == user.id %>
+              <%= form_for(@user.follower_relationships.find_by(follower_id: user.id),
+                           html: { method: :delete },
+                           remote: true,
+                           data: { confirm: "You shure?" }) do |f| %>
+                <%= f.submit "Unfollow", class: "btn", id: "unfollow" %>
+              <% end %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p><%= @user.name %>さんをフォローしているユーザーはいません</p>
+    <% end %>
+  </div>
+</div>
